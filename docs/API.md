@@ -1,0 +1,55 @@
+# Munshi API
+
+Base URL: `PUBLIC_BASE_URL` (local default `http://localhost:3001`).
+
+## Health
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/health` | Service status |
+
+## Shop (public)
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/shop/:sellerSlug/listings` | Published listings |
+| GET | `/api/shop/:sellerSlug/listings/:listingId` | One published listing |
+
+## Seller listings
+
+| Method | Path | Body | Description |
+|--------|------|------|-------------|
+| POST | `/api/sellers/:slug/uploads` | `multipart/form-data` field `photos` (max 5) | Upload to Cloudinary → `{ photoUrls }` |
+| POST | `/api/sellers/:slug/listings/draft` | `{ "photoUrls": ["https://..."] }` | AI draft (placeholder) → DB row |
+| PATCH | `/api/sellers/:slug/listings/:listingId` | `{ "price_cents", "stock_quantity", "title", ... }` | Edit draft (seller sets price) |
+| POST | `/api/sellers/:slug/listings/:listingId/publish` | — | Publish when price + stock set |
+| GET | `/api/sellers/:slug/listings/drafts` | — | List drafts |
+
+## Checkout (PayPal sandbox)
+
+| Method | Path | Body | Description |
+|--------|------|------|-------------|
+| POST | `/api/checkout` | `{ "listingId", "quantity" }` | Create PayPal order (price from DB) |
+| POST | `/api/checkout/capture` | `{ "paypalOrderId" }` | Capture + mark paid + decrement stock |
+| GET | `/api/demo-listing` | — | Day 1 seed listing (dev) |
+
+## Orders & dashboard
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/orders` | Recent orders (dev) |
+| GET | `/api/sellers/:slug/orders` | Seller orders + AI summary placeholder |
+| GET | `/api/sellers/:slug/restock-suggestions` | Rule-based restock hints |
+
+## Cart (extra 8)
+
+| Method | Path | Body | Description |
+|--------|------|------|-------------|
+| POST | `/api/cart/total` | `{ "lineItems": [{ "listingId", "quantity" }] }` | Total computed in code |
+
+## Webhooks
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/webhooks/paypal` | Reachability check |
+| POST | `/api/webhooks/paypal` | PayPal events (`PAYPAL_WEBHOOK_ID` when deployed) |

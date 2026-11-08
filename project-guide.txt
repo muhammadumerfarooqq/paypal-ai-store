@@ -1,0 +1,126 @@
+*PAYPAL AI HACKATHON: PART 1, THE PROJECT*
+
+*The hackathon*
+- Deadline: 12 Nov, 12pm PST = 13 Nov, 1am PKT. We submit on 11 Nov.
+- Prizes: $67,500 cash. Judged equally on technical implementation, design, impact, innovation and presentation.
+- We must submit: a working demo, a public GitHub repo with a license, a public YouTube demo video under 3 minutes, and a text description.
+- PayPal sandbox and AI must both be central to the project.
+
+*The problem*
+Small sellers run their business through Instagram and WhatsApp. Taking orders and payments by chat is messy, and building a store is too much work.
+
+*The solution*
+A seller uploads product photos. AI turns them into a store listing, and the app publishes a shareable storefront with PayPal checkout. An AI assistant helps customers buy, and helps the seller manage orders.
+
+*Core features (must work before any extra)*
+1. Photo to listing: seller uploads 3-5 photos. A vision LLM drafts title, description, category, variants and tags. The seller edits and sets the price. AI never invents prices.
+2. Storefront: public page /shop/seller-name showing the listings.
+3. PayPal checkout: Orders API in sandbox, single-item purchase.
+4. Webhooks: paid orders are recorded and stock updates automatically.
+5. Customer assistant: answers product questions using only the listing data. If it does not know, it says so.
+6. Seller dashboard: orders list, AI-written order summary, restock suggestions based on actual sales.
+
+*Extra features (only after the core works)*
+7. Multilingual storefront and assistant (English, Urdu, Arabic, etc.). The original listing stays the source of truth; translations are generated from it.
+8. Chat-to-checkout cart: the assistant adds items to a cart from the conversation, then hands off to PayPal for the cart total. Prices and stock come from our database. The total is computed by code, never by the model. A confirm-cart step comes before payment.
+9. AI-assisted refunds with seller approval (stretch): the assistant checks the refund policy and drafts a recommendation. The seller approves or rejects, and approval triggers the PayPal refund. If it slips, we cut it and list it under next steps.
+
+*Stack*
+React frontend, Node/Express backend, simple DB (Postgres or SQLite), a vision-capable LLM API, PayPal sandbox, free host (webhooks need a public URL).
+
+*Team rules*
+- The core must work smoothly before any extra feature starts.
+- AI never decides prices, totals or stock. Those come from the database and code.
+- The assistant answers only from our data. No made-up product details.
+- A human approval step comes before any money action (cart confirm, refund).
+- No fake metrics. Restock suggestions are rules plus LLM wording, not a predictive model, and we say that plainly. Demo data is labeled as demo data.
+- If a feature is half-working on submission day, hide it instead of demoing it.
+- Merge small and often. Keep the main branch deployable.
+- Secrets (API keys, PayPal credentials) live only in .env and are never committed.
+
+*Demo story (2-3 min)*
+1. Seller uploads photos, AI generates the listing, seller edits and publishes.
+2. A customer opens the storefront, asks a question in Urdu, adds items through chat, and pays through PayPal sandbox.
+3. The seller dashboard updates instantly with the order, stock change and AI summary.
+4. (If done) A refund request is recommended by AI and approved by the seller.
+
+*Known risks*
+- PayPal sandbox quirks: test early, do not leave integration for last.
+- Webhooks need a public URL: deploy early.
+- Crowded idea: the assistant and restock advice must feel central, so they get real time.
+- Only if cart (extra 8) slips: we change the demo to a single-item checkout. We do not fake it.
+
+
+
+
+
+
+
+*PAYPAL AI HACKATHON: PART 2, DAY-BY-DAY PLAN*
+
+*Roles*
+- Sarim: PayPal and backend (Days 1-2)
+- Umer: AI (Day 3)
+- Fizza: frontend (Days 4-5)
+
+*How we work*
+     . update README.md and docs/LIMITATIONS.md, and end with a short summary.
+- At the end of your day: push to the repo and post the summary in the group. The next person starts from that.
+- Tonight (5 Nov): everyone registers on Devpost (paypalaihackathon.devpost.com). Sarim creates the PayPal sandbox app (developer.paypal.com) and tells us if it works from Pakistan. Umer creates the repo and the Devpost team project and invites you.
+
+*DAY 1: Fri 6 Nov: SARIM (foundation)*
+- Project structure: /backend, /ai, /frontend, /docs, with .gitignore and .env.example.
+- DB schema: sellers, listings, orders, stock.
+- One hardcoded product goes through PayPal sandbox checkout end to end (create order, capture, save).
+- Test one sandbox refund call to see if the refund feature is viable.
+- Deploy a skeleton to a free host so there is a public URL, and confirm the webhook endpoint is reachable.
+- Placeholder AI functions with fixed names (draftListing, answerQuestion, summarizeOrders) returning fake data, so Umer can replace them on Day 3.
+- Seed data for a demo seller.
+- Done when: a sandbox payment completes and appears in the DB, and the public URL responds.
+
+*DAY 2: Sat 7 Nov: SARIM (core backend)*
+- Photo upload endpoint and storage.
+- Listings API: create draft, edit, publish, get by seller name. The seller sets the price.
+- Checkout from real listings (price always from the DB).
+- Webhook handler: paid orders are recorded and stock goes down.
+- Orders API for the dashboard.
+- Restock suggestion rules in code (low stock, fast-selling). No predictive model.
+- Cart total endpoint, computed by code (for extra 8), if time allows.
+- docs/API.md that lists every endpoint, so Umer and Fizza can build against it.
+- Core backend deployed by tonight.
+- Done when: a script runs the full flow (upload, publish, buy, webhook, stock update) on the deployed backend.
+
+*DAY 3: Sun 8 Nov: UMER (AI)*
+- Replace the placeholders in /ai with real functions:
+  1. draftListing: photos in, title, description, category, variants and tags out. Output is schema-validated and has no price field.
+  2. answerQuestion: uses only the listing data and says it does not know when the answer is not there.
+  3. summarizeOrders: AI-written summary from real order data.
+  4. Urdu and multilingual prompts (extra 7): translations come from the original listing.
+  5. Cart tool schema for chat-to-cart (extra 8): prices and stock come from the DB, totals from code.
+- 30-question test for the assistant (some answers deliberately not in the listing). The accuracy result goes in the README.
+- Refund recommendation logic (extra 9) only if everything above is done.
+- Done when: all /ai tests pass and the backend uses the real functions.
+
+*DAY 4: Mon 9 Nov: FIZZA (storefront and seller flow)*
+- React app built against docs/API.md.
+- Public storefront /shop/seller-name with listing cards and listing detail pages.
+- Seller screens: upload photos, see the AI draft, edit, set the price, publish.
+- PayPal buy button (sandbox), order confirmation page, sold-out state.
+- Done when: a seller can publish a listing from photos, and a customer can buy it with PayPal sandbox.
+
+*DAY 5: Tue 10 Nov: FIZZA (assistant, dashboard, polish)*
+- Customer assistant chat UI.
+- Seller dashboard: orders list, AI order summary, restock suggestions.
+- Language toggle (extra 7) and cart with a confirm-cart step (extra 8), only if the core is stable.
+- Mobile layout, loading, error and empty states.
+- In the evening, Umer adds the README, Devpost description, LICENSE and demo video script.
+- Feature freeze tonight: nothing new after this.
+
+*Wed 11 Nov: FINAL DAY (all)*
+- Test the full flow in a fresh browser.
+- Repo is public and the license is visible in the About section.
+- Record the 2-3 min demo (Fizza records, using Umer's script) and upload it to YouTube as public.
+- Submit on Devpost.
+- Thu 12 Nov is a spare day. We do not use it unless something breaks.
+
+*Cut order if we run short:* refund (extra 9), then cart (extra 8), then Urdu (extra 7). The core always stays.
