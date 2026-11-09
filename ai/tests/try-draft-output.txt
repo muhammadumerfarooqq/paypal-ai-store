@@ -1,0 +1,140 @@
+
+=== [1/8] pexels-ali-jafar-851025332-40366359.jpg  (2.0s, source: gemini) ===
+{
+  "title": "Black Men's Kurta and Pants Set",
+  "description": "This set includes a long black tunic featuring a classic collar and button placket, paired with matching black trousers. The outfit is styled with long sleeves and finished with dark footwear.",
+  "category": "Clothing",
+  "tags": [
+    "mens clothing",
+    "black kurta",
+    "kurta set",
+    "tunic",
+    "pants"
+  ],
+  "variants": [],
+  "source": "gemini"
+}
+
+=== [2/8] pexels-badesaba-34433313.jpg  (2.6s, source: gemini) ===
+{
+  "title": "cinnamon spice scented candle in glass jar",
+  "description": "This listing features two glass jar candles placed on a wooden surface surrounded by dried autumn leaves. One candle is red with a label reading cinnamon spice, while the other is white and lit with a visible flame. The background shows vertical wooden slats and a draped red fabric.",
+  "category": "Home & Kitchen",
+  "tags": [
+    "candle",
+    "cinnamon spice",
+    "glass jar",
+    "home decor",
+    "autumn leaves"
+  ],
+  "variants": [],
+  "source": "gemini"
+}
+
+=== [3/8] pexels-ekaterina-bolovtsova-6312194.jpg  (2.6s, source: gemini) ===
+{
+  "title": "Ceramic mugs set with wooden tray",
+  "description": "This set includes two ceramic mugs, one in light grey and one in dark grey, featuring simple rounded handles. They are displayed side-by-side on a rectangular wooden serving tray.",
+  "category": "Home & Kitchen",
+  "tags": [
+    "mugs",
+    "ceramic mugs",
+    "coffee mugs",
+    "wooden tray",
+    "kitchenware",
+    "tableware"
+  ],
+  "variants": [
+    {
+      "name": "Color",
+      "options": [
+        "Light Grey",
+        "Dark Grey"
+      ]
+    }
+  ],
+  "source": "gemini"
+}
+
+=== [4/8] pexels-jose-martin-segura-benites-1422456152-27174573.jpg  (6.4s, source: gemini) ===
+{
+  "title": "dark brown and beige structured tote bag",
+  "description": "This dark brown structured handbag features two beige top handles and a matching beige adjustable shoulder strap with a metal buckle. The main body has a textured appearance. Gold-toned hardware connects the strap to the bag.",
+  "category": "Bags & Accessories",
+  "tags": [
+    "tote bag",
+    "brown handbag",
+    "beige handles",
+    "shoulder bag",
+    "textured bag"
+  ],
+  "variants": [],
+  "source": "gemini"
+}
+
+=== [5/8] pexels-meruyert-gonullu-7314466.jpg  (9.7s, source: gemini) ===
+{
+  "title": "Gold-colored necklaces and bracelets display",
+  "description": "This display features an assortment of gold-colored necklaces on red velvet stands and multiple gold-colored bracelets piled below. A small sign on one stand reads 22k gold. The pieces showcase various intricate link patterns, textures, and decorative designs.",
+  "category": "Jewelry",
+  "tags": [
+    "gold jewelry",
+    "necklaces",
+    "bracelets",
+    "gold display",
+    "ornate jewelry"
+  ],
+  "variants": [],
+  "source": "gemini"
+}
+
+=== [6/8] pexels-ron-lach-8386652.jpg  (3.6s, source: gemini) ===
+{
+  "title": "pink floral wrap dress",
+  "description": "A light pink wrap dress featuring a floral pattern with short flared sleeves and a tie side. The dress hangs on a clothes rack alongside other garments.",
+  "category": "Clothing",
+  "tags": [
+    "dress",
+    "floral",
+    "pink",
+    "wrap dress",
+    "short sleeve"
+  ],
+  "variants": [],
+  "source": "gemini"
+}
+
+=== [7/8] pexels-sarayu-p-371879973-14579309.jpg  (2.7s, source: gemini) ===
+{
+  "title": "Silver-toned ornate pendant necklaces",
+  "description": "These are four silver-toned necklaces featuring intricate filigree-style pendants with leaf and star motifs. Each pendant is suspended from a thin chain and finished with small white beads hanging along the bottom edge.",
+  "category": "Jewelry",
+  "tags": [
+    "necklace",
+    "pendant",
+    "silver-toned",
+    "jewelry",
+    "filigree",
+    "bead"
+  ],
+  "variants": [],
+  "source": "gemini"
+}
+
+=== [8/8] pexels-zaktech90-1027130.jpg  (4.5s, source: gemini) ===
+{
+  "title": "Red and black sneakers",
+  "description": "A pair of red sneakers with a dark swoosh logo on the side and white soles. Laces are visible at the front, and a second pair of dark sneakers is blurred in the background.",
+  "category": "Footwear",
+  "tags": [
+    "sneakers",
+    "shoes",
+    "red sneakers",
+    "footwear",
+    "athletic shoes"
+  ],
+  "variants": [],
+  "source": "gemini"
+}
+
+8/8 drafts came from the model (the rest fell back to empty).

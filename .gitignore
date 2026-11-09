@@ -8,3 +8,6 @@ build/
 uploads/
 coverage/
 .cursor/
+
+sample-photos/
+ai/tests/_*.log

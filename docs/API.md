@@ -20,7 +20,7 @@ Base URL: `PUBLIC_BASE_URL` (local default `http://localhost:3001`).
 | Method | Path | Body | Description |
 |--------|------|------|-------------|
 | POST | `/api/sellers/:slug/uploads` | `multipart/form-data` field `photos` (max 5) | Upload to Cloudinary → `{ photoUrls }` |
-| POST | `/api/sellers/:slug/listings/draft` | `{ "photoUrls": ["https://..."] }` | AI draft (placeholder) → DB row |
+| POST | `/api/sellers/:slug/listings/draft` | `{ "photoUrls": ["https://..."] }` | Real AI draft (Gemini) → DB row. Fields empty if AI unavailable |
 | PATCH | `/api/sellers/:slug/listings/:listingId` | `{ "price_cents", "stock_quantity", "title", ... }` | Edit draft (seller sets price) |
 | POST | `/api/sellers/:slug/listings/:listingId/publish` | — | Publish when price + stock set |
 | GET | `/api/sellers/:slug/listings/drafts` | — | List drafts |
@@ -38,14 +38,14 @@ Base URL: `PUBLIC_BASE_URL` (local default `http://localhost:3001`).
 | Method | Path | Description |
 |--------|------|-------------|
 | GET | `/api/orders` | Recent orders (dev) |
-| GET | `/api/sellers/:slug/orders` | Seller orders + AI summary placeholder |
+| GET | `/api/sellers/:slug/orders` | Seller orders + AI summary (numbers computed in code; "not enough data" under 3 orders) |
 | GET | `/api/sellers/:slug/restock-suggestions` | Rule-based restock hints |
 
 ## Cart (extra 8)
 
 | Method | Path | Body | Description |
 |--------|------|------|-------------|
-| POST | `/api/cart/total` | `{ "lineItems": [{ "listingId", "quantity" }] }` | Total computed in code |
+| POST | `/api/cart/total` | `{ "lineItems": [{ "listingId", "quantity" }] }` | Total computed in code. Feed it the `lineItems` from `proposeCartItems()` (human confirms first) |
 
 ## Webhooks
 

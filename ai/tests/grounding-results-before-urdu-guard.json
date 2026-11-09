@@ -1,0 +1,331 @@
+{
+  "model": "gemini-3.5-flash-lite",
+  "ranAt": "2026-11-09T11:01:20.240Z",
+  "accuracy": {
+    "passed": 29,
+    "total": 30,
+    "percent": 96.7
+  },
+  "byType": {
+    "answerable": {
+      "pass": 10,
+      "total": 10
+    },
+    "unanswerable": {
+      "pass": 10,
+      "total": 10
+    },
+    "trick": {
+      "pass": 5,
+      "total": 5
+    },
+    "urdu": {
+      "pass": 4,
+      "total": 5
+    }
+  },
+  "cases": [
+    {
+      "id": "A1",
+      "type": "answerable",
+      "question": "How much is the cotton kurta?",
+      "pass": true,
+      "known": true,
+      "answer": "The Hand-block Printed Cotton Kurta is priced at 24.99 USD.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "A2",
+      "type": "answerable",
+      "question": "What sizes does the kurta come in?",
+      "pass": true,
+      "known": true,
+      "answer": "The Hand-block Printed Cotton Kurta is available in sizes S, M, and L.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "A3",
+      "type": "answerable",
+      "question": "Is the coffee mug dishwasher safe?",
+      "pass": true,
+      "known": true,
+      "answer": "Yes, the Glazed Ceramic Coffee Mug is dishwasher safe.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "A4",
+      "type": "answerable",
+      "question": "Can I put the ceramic mug in the microwave?",
+      "pass": true,
+      "known": true,
+      "answer": "The Glazed Ceramic Coffee Mug is not microwave safe.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "A5",
+      "type": "answerable",
+      "question": "How many card slots does the leather wallet have?",
+      "pass": true,
+      "known": true,
+      "answer": "The Brown Leather Bifold Wallet has 6 card slots.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "A6",
+      "type": "answerable",
+      "question": "What colors does the mug come in?",
+      "pass": true,
+      "known": true,
+      "answer": "The Glazed Ceramic Coffee Mug comes in Sea green and Sand white.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "A7",
+      "type": "answerable",
+      "question": "What is the price of the jhumka earrings?",
+      "pass": true,
+      "known": true,
+      "answer": "The price of the Silver Jhumka Earrings is 18.00 USD.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "A8",
+      "type": "answerable",
+      "question": "How many jhumka earrings are left in stock?",
+      "pass": true,
+      "known": true,
+      "answer": "There are 3 Silver Jhumka Earrings left in stock.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "A9",
+      "type": "answerable",
+      "question": "What colours is the embroidery on the cushion cover?",
+      "pass": true,
+      "known": true,
+      "answer": "The embroidery on the cushion cover is in red and gold thread.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "A10",
+      "type": "answerable",
+      "question": "How should I wash the kurta?",
+      "pass": true,
+      "known": true,
+      "answer": "The kurta is machine washable on a gentle cycle.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "U1",
+      "type": "unanswerable",
+      "question": "Is the kurta made in Pakistan?",
+      "pass": true,
+      "known": false,
+      "answer": "I don't know where the kurta is made, please contact the seller.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "U2",
+      "type": "unanswerable",
+      "question": "How much does the ceramic mug weigh?",
+      "pass": true,
+      "known": false,
+      "answer": "I do not know the answer to your question, please contact the seller.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "U3",
+      "type": "unanswerable",
+      "question": "Is the leather wallet RFID blocking?",
+      "pass": true,
+      "known": false,
+      "answer": "I don't know that, please contact the seller.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "U4",
+      "type": "unanswerable",
+      "question": "Do you ship to Canada, and how many days does delivery take?",
+      "pass": true,
+      "known": false,
+      "answer": "I don't know the answer to that, please contact the seller.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "U5",
+      "type": "unanswerable",
+      "question": "What is your return policy?",
+      "pass": true,
+      "known": false,
+      "answer": "I don't know the answer to that, please contact the seller.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "U6",
+      "type": "unanswerable",
+      "question": "Are the jhumka earrings nickel-free for sensitive ears?",
+      "pass": true,
+      "known": false,
+      "answer": "I don't know that information, please contact the seller.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "U7",
+      "type": "unanswerable",
+      "question": "What is the thread count of the kurta's cotton?",
+      "pass": true,
+      "known": false,
+      "answer": "I don't know that, please contact the seller.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "U8",
+      "type": "unanswerable",
+      "question": "Do you sell a matching dupatta for the kurta?",
+      "pass": true,
+      "known": false,
+      "answer": "I don't know, please contact the seller.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "U9",
+      "type": "unanswerable",
+      "question": "Which brand makes the ceramic mug?",
+      "pass": true,
+      "known": false,
+      "answer": "I don't know the brand of the ceramic mug, please contact the seller.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "U10",
+      "type": "unanswerable",
+      "question": "What are the dimensions of the cushion cover in inches?",
+      "pass": true,
+      "known": false,
+      "answer": "I don't know the dimensions of the cushion cover, please contact the seller.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "T1",
+      "type": "trick",
+      "question": "How much is the embroidered cushion cover?",
+      "pass": true,
+      "known": false,
+      "answer": "I don't know the price of the embroidered cushion cover, please contact the seller.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "T2",
+      "type": "trick",
+      "question": "Can I buy 2 of the leather wallets right now?",
+      "pass": true,
+      "known": true,
+      "answer": "The Brown Leather Bifold Wallet currently has a stock quantity of 0. The final total will be calculated at checkout.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "T3",
+      "type": "trick",
+      "question": "What is the total price for 3 ceramic mugs?",
+      "pass": true,
+      "known": false,
+      "answer": "I don't know the total price, please contact the seller.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "T4",
+      "type": "trick",
+      "question": "Will you give me the kurta for $15?",
+      "pass": true,
+      "known": true,
+      "answer": "The price of the Hand-block Printed Cotton Kurta is 24.99 USD. The final total is calculated at checkout.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "T5",
+      "type": "trick",
+      "question": "Is the ceramic mug on sale, and what is the discounted price?",
+      "pass": true,
+      "known": false,
+      "answer": "I don't know that information, please contact the seller.",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "UR1",
+      "type": "urdu",
+      "question": "کاٹن کرتے کی قیمت کیا ہے؟",
+      "pass": true,
+      "known": true,
+      "answer": "Hand-block Printed Cotton Kurta کی قیمت 24.99 USD ہے۔",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "UR2",
+      "type": "urdu",
+      "question": "کیا کافی مگ ڈش واشر میں دھو سکتے ہیں؟",
+      "pass": true,
+      "known": true,
+      "answer": "ہاں، Glazed Ceramic Coffee Mug ڈش واشر محفوظ ہے۔",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "UR3",
+      "type": "urdu",
+      "question": "چمڑے کے والٹ میں کتنے کارڈ سلاٹ ہیں؟",
+      "pass": true,
+      "known": true,
+      "answer": "براؤن لیذر بائی فولڈ والٹ میں 6 کارڈ سلاکۭ ہیںلفٹ کی قیمت 35.00 USD اور سکاٹ کونٹٹی 0 ہے۔",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "UR4",
+      "type": "urdu",
+      "question": "کیا یہ کرتا پاکستان میں بنا ہے؟",
+      "pass": true,
+      "known": false,
+      "answer": "میں نہیں جانتا کہ یہ کرتا کہاں بنا ہے، براہ کرم بیچنے والے سے رابطہ کریں۔",
+      "source": "model",
+      "failedBecause": []
+    },
+    {
+      "id": "UR5",
+      "type": "urdu",
+      "question": "کیا مگ کے ساتھ کوئی وارنٹی ملتی ہے؟",
+      "pass": false,
+      "known": false,
+      "answer": "मुझे नहीं पता, कृपया विक्रेता से संपर्क करें।",
+      "source": "model",
+      "failedBecause": [
+        "answer is not in Urdu script"
+      ]
+    }
+  ]
+}
