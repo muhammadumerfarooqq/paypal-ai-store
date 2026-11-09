@@ -19,6 +19,14 @@ export async function findOrderByPaypalOrderId(paypalOrderId) {
   return rows[0] || null;
 }
 
+export async function findOrderByPaypalCaptureId(captureId) {
+  const { rows } = await getPool().query(
+    "SELECT * FROM orders WHERE paypal_capture_id = $1",
+    [captureId]
+  );
+  return rows[0] || null;
+}
+
 export async function createPendingOrder({ listing, quantity, paypalOrderId }) {
   const amountCents = listing.price_cents * quantity;
   const { rows } = await getPool().query(
@@ -99,6 +107,29 @@ export async function markOrderPaid({
   } finally {
     client.release();
   }
+}
+
+/** Handle PayPal PAYMENT.CAPTURE.COMPLETED webhook payload. */
+export async function applyCaptureCompletedWebhook(event) {
+  const capture = event?.resource;
+  if (!capture?.id) {
+    return { ok: false, reason: "no_capture_resource" };
+  }
+
+  const paypalOrderId = capture.supplementary_data?.related_ids?.order_id;
+  if (!paypalOrderId) {
+    const existing = await findOrderByPaypalCaptureId(capture.id);
+    if (existing?.status === "paid") {
+      return { ok: true, order: existing, alreadyPaid: true };
+    }
+    return { ok: false, reason: "missing_order_id" };
+  }
+
+  return markOrderPaid({
+    paypalOrderId,
+    captureId: capture.id,
+    capturePayload: event,
+  });
 }
 
 export function extractCaptureFromOrderResponse(captureResponse) {

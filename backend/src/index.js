@@ -9,6 +9,7 @@ import { listingsRouter } from "./routes/listings.js";
 import { shopRouter } from "./routes/shop.js";
 import { dashboardRouter } from "./routes/dashboard.js";
 import { cartRouter } from "./routes/cart.js";
+import { assistantRouter } from "./routes/assistant.js";
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,7 @@ app.use(listingsRouter);
 app.use(shopRouter);
 app.use(dashboardRouter);
 app.use(cartRouter);
+app.use(assistantRouter);
 
 app.listen(config.port, () => {
   console.log(`Munshi backend on ${config.publicBaseUrl} (port ${config.port})`);

@@ -1,31 +1,29 @@
 import { Router } from "express";
 import { config } from "../config.js";
-import { markOrderPaid } from "../services/orders.js";
+import { applyCaptureCompletedWebhook } from "../services/orders.js";
+import { verifyPayPalWebhook } from "../paypal/webhookVerify.js";
 
 export const webhooksRouter = Router();
 
-/** Day 1: reachable endpoint; full signature verify when PAYPAL_WEBHOOK_ID is set. */
 webhooksRouter.post("/api/webhooks/paypal", async (req, res) => {
   try {
+    const verification = await verifyPayPalWebhook(req);
+    if (!verification.ok && !verification.skipped) {
+      console.warn("PayPal webhook verification failed:", verification.reason);
+      return res.sendStatus(401);
+    }
+
     const event = req.body;
     console.log("PayPal webhook:", event?.event_type);
 
     if (event?.event_type === "PAYMENT.CAPTURE.COMPLETED") {
-      const capture = event.resource;
-      const paypalOrderId =
-        capture?.supplementary_data?.related_ids?.order_id ||
-        event.resource?.id;
-
-      if (paypalOrderId) {
-        await markOrderPaid({
-          paypalOrderId,
-          captureId: capture.id,
-          capturePayload: event,
-        });
+      const result = await applyCaptureCompletedWebhook(event);
+      if (!result.ok && result.reason !== "order_not_found") {
+        console.warn("Webhook capture apply:", result);
       }
     }
 
-    if (!config.paypal.webhookId) {
+    if (verification.skipped) {
       console.warn(
         "PAYPAL_WEBHOOK_ID not set — webhook accepted without verification (dev only)."
       );
@@ -39,5 +37,9 @@ webhooksRouter.post("/api/webhooks/paypal", async (req, res) => {
 });
 
 webhooksRouter.get("/api/webhooks/paypal", (_req, res) => {
-  res.json({ ok: true, message: "PayPal webhook endpoint reachable" });
+  res.json({
+    ok: true,
+    message: "PayPal webhook endpoint reachable",
+    webhookIdConfigured: Boolean(config.paypal.webhookId),
+  });
 });

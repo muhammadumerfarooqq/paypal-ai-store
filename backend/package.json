@@ -10,7 +10,9 @@
     "db:seed": "node src/db/seed.js",
     "test:checkout": "node scripts/test-checkout-flow.js",
     "test:refund": "node scripts/test-refund.js",
-    "test:day2": "node scripts/test-day2-flow.js"
+    "test:day2": "node scripts/test-day2-flow.js",
+    "test:live": "node scripts/test-live-deploy.js",
+    "postinstall": "npm install --prefix ../ai"
   },
   "dependencies": {
     "cloudinary": "^2.5.1",

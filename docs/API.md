@@ -41,6 +41,15 @@ Base URL: `PUBLIC_BASE_URL` (local default `http://localhost:3001`).
 | GET | `/api/sellers/:slug/orders` | Seller orders + AI summary (numbers computed in code; "not enough data" under 3 orders) |
 | GET | `/api/sellers/:slug/restock-suggestions` | Rule-based restock hints |
 
+## Customer assistant (AI)
+
+| Method | Path | Body | Description |
+|--------|------|------|-------------|
+| POST | `/api/assistant` | `{ "question", "language"?: "en"\|"ur", "sellerSlug"?: string, "listings"?: [] }` | `answerQuestion(listings, question, language)` |
+| POST | `/api/assistant/cart` | `{ "message", "sellerSlug"?: string, "listings"?: [] }` | `proposeCartItems(listings, message)` — confirm then `POST /api/cart/total` |
+
+Pass **`sellerSlug`** (e.g. `demo-boutique`) or an explicit **`listings`** array from the shop API.
+
 ## Cart (extra 8)
 
 | Method | Path | Body | Description |
@@ -52,4 +61,4 @@ Base URL: `PUBLIC_BASE_URL` (local default `http://localhost:3001`).
 | Method | Path | Description |
 |--------|------|-------------|
 | GET | `/api/webhooks/paypal` | Reachability check |
-| POST | `/api/webhooks/paypal` | PayPal events (`PAYPAL_WEBHOOK_ID` when deployed) |
+| POST | `/api/webhooks/paypal` | `PAYMENT.CAPTURE.COMPLETED` — signature verified via `PAYPAL_WEBHOOK_ID` |
