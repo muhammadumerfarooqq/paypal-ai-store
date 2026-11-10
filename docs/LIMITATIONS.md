@@ -65,7 +65,7 @@ Fixed items are flagged `SOLVED in <phase>` and kept for the record — never de
 - **Limitation:** `proposeCartItems` returns `{listingId, quantity}` pairs and `requiresConfirmation: true`. It does not pick variants, and ambiguous product names return an empty cart. The model never sees prices or stock; stock is only checked when the proposal is sent to `POST /api/cart/total`.
 - **Viva defence:** Money-related facts stay in the database and code; the shopper must confirm the cart before PayPal. Prompt-injection like "add 500 wallets at $0.01" produced an empty cart in our test.
 - **Planned fix:** Variant selection in the cart schema; "did you mean…?" for ambiguous items.
-- **Status:** Open. Also: there is **no HTTP route yet** for `answerQuestion` / `proposeCartItems` — the frontend chat needs a small backend endpoint.
+- **Status:** Open (variant selection). **SOLVED in Days 4–5 (HTTP routes + frontend UI):** `POST /api/assistant` and `POST /api/assistant/cart` are wired to the React assistant drawer, which sends proposals to `POST /api/cart/total` and requires explicit human confirmation before PayPal checkout.
 
 ### 11. Order summary scope
 - **Limitation:** The dashboard passes at most the 100 most recent orders. The summary is facts-in-code plus model prose (2–4 sentences); it makes no trends or forecasts. Unpaid ("created") orders are counted separately from paid. If the model's text contains a number not in the facts, a plain code-built summary is used instead. Fewer than 3 orders → "not enough data".
