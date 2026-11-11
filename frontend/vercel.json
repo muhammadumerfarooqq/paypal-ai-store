@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://paypal-ai-store.onrender.com/api/:path*" },
+    { "source": "/health", "destination": "https://paypal-ai-store.onrender.com/health" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
