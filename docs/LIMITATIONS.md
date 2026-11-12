@@ -96,3 +96,17 @@ Fixed items are flagged `SOLVED in <phase>` and kept for the record — never de
 - **Viva defence:** Cut order in the plan puts refunds first; core flow and money safety come before stretch goals.
 - **Planned fix:** Recommendation from policy text with seller approval before any PayPal refund.
 - **Status:** Open (listed under next steps).
+
+## Deployment limitations (Days 4–5)
+
+### 16. Render free-instance cold start
+- **Limitation:** The backend runs on a free Render instance that sleeps when idle. The first request after inactivity can take about 50 seconds; the storefront and dashboard may look stuck or show a loading state until the backend wakes up.
+- **Viva defence:** It is a hosting-tier choice, not a code defect: the free tier keeps the project at zero cost while PayPal webhooks still get a public HTTPS URL. The README states the delay, and we wake the service (open `/health`) before demos and recording.
+- **Planned fix:** Paid always-on instance, or a scheduled keep-alive ping; frontend "waking up the server…" message.
+- **Status:** Open — mitigated (documented; pre-warm before demos).
+
+### 17. Gemini free-tier rate limit on the live assistant
+- **Limitation:** The live AI features (draft, assistant, cart proposal, order summary) use the Gemini free tier on `gemini-3.5-flash-lite`: 15 requests per minute. Several simultaneous users or fast repeated questions get HTTP 429 and the app falls back to "I don't know" / empty draft fields / a plain-text summary instead of an AI answer. (The full `gemini-3.6-flash` model is capped at 20 requests per day on the free tier, so it is not used.)
+- **Viva defence:** We measured the limits, chose the model that fits them, and every AI function fails safe: a rate limit never crashes the server and never produces an invented answer, only a refusal to answer.
+- **Planned fix:** Enable billing and move to `gemini-3.6-flash`; cache answers per (listing, question); queue or debounce chat requests; show "AI is busy, try again" in the UI when `source` is `fallback`.
+- **Status:** Open — mitigated (safe fallbacks; related to limitations 4 and 14).

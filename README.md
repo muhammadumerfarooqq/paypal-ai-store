@@ -12,12 +12,21 @@
 | What | Link |
 |------|------|
 | **Backend API (Render)** | https://paypal-ai-store.onrender.com — try [`/health`](https://paypal-ai-store.onrender.com/health) |
-| **Frontend (Vercel)** | ⚠️ **TODO — add the Vercel URL here after deploy** |
-| **Demo video (YouTube, < 3 min)** | ⚠️ **TODO — add the YouTube link here after upload** |
+| **Frontend (Vercel)** | https://paypal-ai-store.vercel.app |
+| **Demo video (YouTube, < 3 min)** | See [Demo](#demo) |
 
 > **Heads-up:** the backend runs on Render's **free instance, which sleeps when idle**. The first request after a quiet period can take **about 50 seconds** while it wakes up; later requests are fast.
 > The AI endpoints also share a **free-tier Gemini quota** (15 requests/minute on the current model), so under heavy use they fall back to "I don't know" / empty drafts instead of failing — see [AI layer](#ai-layer).
 > Payments are **PayPal sandbox only** — no real money moves.
+
+---
+
+## Live demo
+
+- **Storefront:** https://paypal-ai-store.vercel.app/shop/demo-boutique
+- **Seller dashboard:** https://paypal-ai-store.vercel.app/seller/demo-boutique/dashboard
+
+The backend runs on a free Render instance: the first request after inactivity can take ~50 seconds.
 
 ---
 
@@ -30,7 +39,7 @@
 ![PayPal](https://img.shields.io/badge/PayPal-Sandbox-003087?style=for-the-badge&logo=paypal&logoColor=white)
 ![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white)
 
-![React](https://img.shields.io/badge/React-In_progress-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![React](https://img.shields.io/badge/React-Done-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![Gemini](https://img.shields.io/badge/AI-Google_Gemini-FF6F00?style=for-the-badge&logo=google&logoColor=white)
 
 | Layer | Choice | Notes |
@@ -40,13 +49,13 @@
 | **Payments** | PayPal Orders API | Sandbox; capture + webhooks |
 | **Media** | Cloudinary | Seller photo uploads (3–5 images) |
 | **AI** | `/ai` module | Google Gemini (`@google/genai`), schema-validated output — see [AI layer](#ai-layer) |
-| **Frontend** | React (deployed on Vercel) | **In progress** — not yet part of the verified backend/AI results below |
+| **Frontend** | React (deployed on Vercel) | **Done** — storefront, assistant and seller dashboard |
 
 ---
 
 ## What it does
 
-What is built and working **in the backend + AI layer** (endpoint details in [`docs/API.md`](docs/API.md)):
+What is built (backend + AI layer, with the React frontend on top; endpoint details in [`docs/API.md`](docs/API.md)):
 
 1. **Photo → listing** — Seller uploads 1–5 photos; Gemini drafts title, description, category, tags and variants. The draft has **no price or stock field**; the seller reviews, edits, sets the price and stock, then publishes.
 2. **Storefront API** — Published listings per seller slug (`/api/shop/:sellerSlug/listings`).
@@ -61,7 +70,7 @@ What is **not** built or not complete (full list in [Next steps](#next-steps) an
 - Paying a **multi-item cart** through PayPal. `/api/checkout` handles one listing; the cart endpoints produce a proposal and a DB-computed total, but there is no multi-item PayPal checkout.
 - **AI-assisted refunds** (not built).
 - **Predictive restock** — suggestions are plain rules, not a model.
-- The React frontend is **in progress**; the Urdu/chat/cart screens should only be counted as working once the UI exists. The API behind them works and is tested (see [AI evaluation](#ai-evaluation)).
+- **Single-item checkout only** — the chat cart ends in a database-computed total, not a multi-item PayPal order (see the first bullet).
 
 ---
 
@@ -69,9 +78,10 @@ What is **not** built or not complete (full list in [Next steps](#next-steps) an
 
 | Owner | Area | Status |
 |-------|------|--------|
-| **Sarim** | Backend, PayPal sandbox checkout, database, webhooks, assistant endpoints, and the React frontend | Backend + endpoints ✅ deployed on Render · Frontend 🚧 **in progress** |
-| **Umer** | AI layer (`/ai`), AI tests and evaluation, documentation | ✅ Done — evaluated locally (see [AI evaluation](#ai-evaluation)) |
-| All | Devpost write-up, demo video, submission (11 Nov) | 🔜 |
+| **Sarim** | Backend, PayPal sandbox checkout, database, webhooks, assistant endpoints | ✅ Done — deployed on Render |
+| **Fizza** | React frontend (built with an AI coding tool) | ✅ Done — deployed on Vercel |
+| **Umer** | AI layer (`/ai`), integration, deployment, testing and evaluation, documentation | ✅ Done (see [AI evaluation](#ai-evaluation)) |
+| All | Devpost write-up, demo video, submission | 🔜 Demo video link pending |
 
 ---
 
@@ -97,7 +107,7 @@ Munshi/
 │   ├── index.js      # the exported functions (signatures fixed)
 │   ├── src/          # Gemini wrapper, image prep, guards, one file per function
 │   └── tests/        # unit, grounding, photo and cart tests
-├── frontend/         # React app (in progress)
+├── frontend/         # React app (Vercel)
 ├── docs/
 │   ├── API.md
 │   ├── DEPLOY.md
@@ -111,7 +121,7 @@ Munshi/
 
 ## Demo
 
-▶️ **Demo video (YouTube, under 3 minutes):** ⚠️ **TODO — paste the public YouTube link here before submitting.**
+TODO_YOUTUBE_LINK
 
 ---
 
@@ -240,6 +250,12 @@ Script: [`ai/tests/try-draft.js`](ai/tests/try-draft.js) ran `draftListing` on 8
 | 8 | Red sneakers (blurred black pair behind) | ⚠️ Issue | Title "Red and black sneakers" — the black pair is a blurred background item, not the product. Correctly avoided naming the brand. |
 
 **Strict score: 5 of 8 clean, 3 of 8 with minor-to-moderate problems** (an unhedged material claim, props or background treated as part of the product, one colour name off, a store-window photo treated as a product). None of the problems is a fabricated price, brand or size, but they are exactly why the seller must review and edit every draft before publishing — the app already requires that, since the AI cannot set a price. The prompt was not tuned on these 8 photos; the planned fix is in `docs/LIMITATIONS.md`.
+
+---
+
+## Limitations
+
+Single-item checkout only; no refunds; the AI assistant uses the Gemini free tier (rate-limited). Full list with viva defences: [`docs/LIMITATIONS.md`](docs/LIMITATIONS.md).
 
 ---
 
