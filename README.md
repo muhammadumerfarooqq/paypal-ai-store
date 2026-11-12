@@ -81,7 +81,7 @@ What is **not** built or not complete (full list in [Next steps](#next-steps) an
 | **Sarim** | Backend, PayPal sandbox checkout, database, webhooks, assistant endpoints | ✅ Done — deployed on Render |
 | **Fizza** | React frontend (built with an AI coding tool) | ✅ Done — deployed on Vercel |
 | **Umer** | AI layer (`/ai`), integration, deployment, testing and evaluation, documentation | ✅ Done (see [AI evaluation](#ai-evaluation)) |
-| All | Devpost write-up, demo video, submission | 🔜 Demo video link pending |
+| All | Devpost write-up, demo video, submission | Demo video: https://youtu.be/CCMCggY_OZw |
 
 ---
 
@@ -121,7 +121,7 @@ Munshi/
 
 ## Demo
 
-TODO_YOUTUBE_LINK
+[Watch the demo video](https://youtu.be/CCMCggY_OZw)
 
 ---
 
